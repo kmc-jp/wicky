@@ -1,4 +1,4 @@
 wicky
 =====
 
-Wiki-based schedule manageent tool
+Wiki-based schedule management tool
