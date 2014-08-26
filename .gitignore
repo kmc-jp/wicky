@@ -1,6 +1,6 @@
 *.swp
 /vendor
-/db/*
+/db/*.sqlite3
 /config/*.yml
 
 #### github:gitignore/Ruby.gitignore ####
