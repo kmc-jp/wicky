@@ -1,3 +1,10 @@
+*.swp
+/vendor
+/db/*
+/config/*.yml
+
+#### github:gitignore/Ruby.gitignore ####
+
 *.gem
 *.rbc
 /.config
