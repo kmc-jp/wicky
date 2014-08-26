@@ -10,6 +10,7 @@ require_relative '../models/project'
 require_relative '../models/participation'
 require_relative '../models/schedule'
 
+set :haml, :escape_html => true
 set :views, "#{File.dirname(__FILE__)}/../views"
 
 get '/' do
