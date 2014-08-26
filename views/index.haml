@@ -2,8 +2,13 @@
 %section
   - projects.each do |proj|
     %h2.project #{proj.name}
+    :kramdown
+      #{proj.summary}
     %h3 参加者
     %ul
-      - proj.users.each do |user|
-        %li #{user.name} (#{user.email})
+      != list_of proj.users do |user|
+        = user.name
+        (
+        = user.email
+        )
 

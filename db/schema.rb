@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140826195941) do
+ActiveRecord::Schema.define(version: 20140826214448) do
 
   create_table "participations", id: false, force: true do |t|
     t.integer "user_id",    null: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140826195941) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "schedules_id"
+    t.text     "summary"
   end
 
   add_index "projects", ["schedules_id"], name: "index_projects_on_schedules_id"
