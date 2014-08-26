@@ -1,0 +1,19 @@
+%h2.project #{project.name}
+:kramdown
+  #{project.summary}
+%h3 参加者
+%ul
+  != list_of project.users do |user|
+    = user.name
+    = surround '(', ')' do
+      = user.email
+%h3 予定
+%ul
+  != list_of project.schedules do |schedule|
+    時間：
+    = schedule.start
+    &dash;
+    = schedule.end
+    ＠
+    = schedule.place
+

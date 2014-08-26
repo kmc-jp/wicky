@@ -1,14 +1,6 @@
 %h1.title プロジェクト一覧
 %section
   - projects.each do |proj|
-    %h2.project #{proj.name}
-    :kramdown
-      #{proj.summary}
-    %h3 参加者
-    %ul
-      != list_of proj.users do |user|
-        = user.name
-        (
-        = user.email
-        )
+    %h2.project
+      %a{ href: url("/project/#{proj.id}") } #{proj.name}
 

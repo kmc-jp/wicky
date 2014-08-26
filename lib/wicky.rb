@@ -20,3 +20,9 @@ get '/' do
   }
 end
 
+get '/project/:id' do |id|
+  haml :project, locals: {
+    project: Project.find(id)
+  }
+end
+
