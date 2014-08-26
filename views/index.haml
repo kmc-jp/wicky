@@ -1,2 +1,9 @@
-%div
-  %h1.title Hoge
+%h1.title プロジェクト一覧
+%section
+  - projects.each do |proj|
+    %h2.project #{proj.name}
+    %h3 参加者
+    %ul
+      - proj.users.each do |user|
+        %li #{user.name} (#{user.email})
+
