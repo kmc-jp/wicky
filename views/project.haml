@@ -1,3 +1,4 @@
+-# coding: utf-8
 %h2.project #{project.name}
 :kramdown
   #{project.summary}
@@ -23,10 +24,19 @@
 %h3 予定
 %ul
   != list_of project.schedules do |schedule|
-    時間：
+    = schedule.name
+    ＠
+    = schedule.place
+    （
     = schedule.start
     &dash;
     = schedule.end
-    ＠
-    = schedule.place
+    ）
+%form{ action: url('/api/schedules/'), method: :post, name: 'add-schedule' }
+  %input{ type: :hidden, name: :project_id, value: project.id }
+  %input{ name: :name }
+  %input{ name: :start, type: :datetime }
+  %input{ name: :end, type: :datetime }
+  %input{ name: :place }
+  %button{ type: :submit } 予定を作成する
 

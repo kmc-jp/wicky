@@ -101,3 +101,16 @@ post '/api/participations/' do
   })
 end
 
+post '/api/schedules/' do
+  project_id = params[:project_id]
+  halt 404 unless Project.exists?(project_id)
+  schedule_data = {
+    name: params[:name],
+    place: params[:place],
+    start: time_for(params[:start]),
+    end: time_for(params[:end]),
+    project_id: project_id
+  }
+  json Schedule.create(schedule_data).to_json
+end
+
