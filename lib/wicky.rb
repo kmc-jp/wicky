@@ -4,6 +4,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/json'
+require 'sinatra/reloader' if development?
 require 'haml'
 require 'tilt/haml'
 require_relative '../models/user'
