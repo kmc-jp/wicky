@@ -15,7 +15,7 @@ require_relative './haml/filters/kramdown'
 
 set :method_override, true
 set :haml, :escape_html => true
-set :views, "#{File.dirname(__FILE__)}/../views"
+set :root, "#{File.dirname(__FILE__)}/../"
 
 get '/' do
   redirect '/projects'
