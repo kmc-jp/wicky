@@ -34,6 +34,8 @@
       = schedule.start
       &dash;
       = schedule.end
+  :kramdown
+    #{schedule.description}
   %form{ action: url("/api/schedules/#{schedule.id}"), method: :post, name: 'modify-schedule' }
     %p
       %input{ type: :hidden, name: :_method, value: :PUT }
