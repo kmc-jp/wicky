@@ -1,10 +1,11 @@
 
 source :rubygems
 
-gem 'sinatra', :github => 'sinatra/sinatra'
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'sinatra-activerecord'
 gem 'haml'
 gem 'activerecord'
-gem 'sinatra-activerecord'
 gem 'sqlite3'
 gem 'rake'
 gem 'kramdown'

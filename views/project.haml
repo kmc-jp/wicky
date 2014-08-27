@@ -1,6 +1,13 @@
 %h2.project #{project.name}
 :kramdown
   #{project.summary}
+%form{ action: url("/api/projects/#{project.id}"), method: :post, name: 'edit-summary' }
+  %input{ type: :hidden, name: :_method, value: :put }
+  %input{ type: :hidden, name: :name, value: project.name }
+  %textarea{ name: :summary }
+    :preserve
+      #{project.summary}
+  %button{ type: :submit } 編集する
 %h3 参加者
 %ul
   != list_of project.users do |user|

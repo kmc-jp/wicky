@@ -1,12 +1,3 @@
-GIT
-  remote: git://github.com/sinatra/sinatra.git
-  revision: 77438afd761e30610c9b1efda38d39fce1d1d01b
-  specs:
-    sinatra (1.4.5)
-      rack (~> 1.4)
-      rack-protection (~> 1.4)
-      tilt (>= 1.3, < 3)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -24,6 +15,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    backports (3.6.0)
     builder (3.2.2)
     haml (4.0.5)
       tilt
@@ -31,16 +23,30 @@ GEM
     json (1.8.1)
     kramdown (1.4.1)
     minitest (5.4.0)
+    multi_json (1.10.1)
     rack (1.5.2)
     rack-protection (1.5.3)
       rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
     rake (10.3.2)
+    sinatra (1.4.5)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
     sinatra-activerecord (2.0.2)
       activerecord (>= 3.2)
       sinatra (~> 1.0)
+    sinatra-contrib (1.4.2)
+      backports (>= 2.0)
+      multi_json
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.0)
+      tilt (~> 1.3)
     sqlite3 (1.3.9)
     thread_safe (0.3.4)
-    tilt (2.0.1)
+    tilt (1.4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
 
@@ -52,6 +58,7 @@ DEPENDENCIES
   haml
   kramdown
   rake
-  sinatra!
+  sinatra
   sinatra-activerecord
+  sinatra-contrib
   sqlite3
