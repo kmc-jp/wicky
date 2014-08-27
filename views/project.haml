@@ -14,6 +14,12 @@
     = user.name
     = surround '(', ')' do
       = user.email
+%form{ action: url('/api/participations/'), method: :post, name: 'participate' }
+  %input{ name: :name }
+  %input{ name: :email, type: :email }
+  %input{ name: :project_id, type: :hidden, value: project.id }
+  %input{ name: :is_leader, type: :hidden, value: false }
+  %button{ type: :submit } 参加登録する
 %h3 予定
 %ul
   != list_of project.schedules do |schedule|
