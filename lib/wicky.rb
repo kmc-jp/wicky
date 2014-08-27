@@ -114,3 +114,17 @@ post '/api/schedules/' do
   json Schedule.create(schedule_data).to_json
 end
 
+put '/api/schedules/:id' do |id|
+  project_id = params[:project_id]
+  halt 404 unless Project.exists?(project_id)
+  halt 404 unless Schedule.exists?(id)
+  schedule_data = {
+    name: params[:name],
+    place: params[:place],
+    start: time_for(params[:start]),
+    end: time_for(params[:end]),
+    project_id: project_id
+  }
+  json Schedule.update(id, schedule_data).to_json
+end
+
