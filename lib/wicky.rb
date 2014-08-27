@@ -39,7 +39,7 @@ get '/api/projects/:id.json' do |id|
   json Project.find(id).to_json
 end
 
-post '/api/projects/' do |id|
+post '/api/projects' do |id|
   project_data = {
     name: params[:name],
     summary: params[:summary]
@@ -65,7 +65,7 @@ get '/api/users/:id.json' do |id|
   json User.find(id).to_json
 end
 
-post '/api/users/' do
+post '/api/users' do
   user_data = {
     name: params[:name],
     email: params[:email]
@@ -83,7 +83,7 @@ put '/api/users/:id' do |id|
   json User.update(id, user_data).to_json
 end
 
-post '/api/participations/' do
+post '/api/participations' do
   user_data = {
     name: params[:name],
     email: params[:email]
@@ -102,7 +102,7 @@ post '/api/participations/' do
   })
 end
 
-post '/api/schedules/' do
+post '/api/schedules' do
   project_id = params[:project_id]
   halt 404 unless Project.exists?(project_id)
   schedule_data = {

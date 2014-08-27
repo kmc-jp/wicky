@@ -16,7 +16,7 @@
     = user.name
     = surround '(', ')' do
       = user.email
-%form{ action: url('/api/participations/'), method: :post, name: 'participate' }
+%form{ action: url('/api/participations'), method: :post, name: 'participate' }
   %p
     %input{ name: :name }
     %input{ name: :email, type: :email }
@@ -44,7 +44,7 @@
       %input{ name: :place, value: schedule.place }
       %button{ type: :submit } 予定を編集する
 %hr
-%form{ action: url('/api/schedules/'), method: :post, name: 'add-schedule' }
+%form{ action: url('/api/schedules'), method: :post, name: 'add-schedule' }
   %p
     %input{ type: :hidden, name: :project_id, value: project.id }
     %input{ name: :name }
