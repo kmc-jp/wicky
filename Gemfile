@@ -4,6 +4,7 @@ source :rubygems
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'sinatra-activerecord'
+gem 'sinatra-assetpack'
 gem 'haml'
 gem 'activerecord'
 gem 'sqlite3'

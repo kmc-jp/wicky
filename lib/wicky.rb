@@ -5,6 +5,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/json'
 require 'sinatra/reloader' if development?
+require 'sinatra/assetpack'
 require 'haml'
 require 'tilt/haml'
 require_relative '../models/user'
@@ -16,6 +17,19 @@ require_relative './haml/filters/kramdown'
 set :method_override, true
 set :haml, :escape_html => true
 set :root, "#{File.dirname(__FILE__)}/../"
+
+assets do
+  serve '/js', from: 'assets/scripts'
+  js :main, [
+    'js/*.js'
+  ]
+  css :main, [
+    'css/*.css',
+    'css/*.sass'
+  ]
+  js_compression :jsmin
+  css_compression :sass
+end
 
 get '/' do
   redirect '/projects'
