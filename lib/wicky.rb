@@ -20,14 +20,15 @@ set :root, "#{File.dirname(__FILE__)}/../"
 
 assets do
   serve '/js', from: 'assets/scripts'
-  js :main, [
-    'js/*.js'
+  serve '/css', from: 'assets/stylesheets'
+
+  js :main, 'js/main.js', [
+    'js/jquery-2.1.1.js'
   ]
-  css :main, [
-    'css/*.css',
-    'css/*.sass'
+  css :main, 'css/main.css', [
+    'css/html5-doctor-reset-stylesheet.css'
   ]
-  js_compression :jsmin
+  js_compression :closure
   css_compression :sass
 end
 
