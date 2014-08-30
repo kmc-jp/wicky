@@ -33,11 +33,11 @@ module Wicky
       serve '/js', from: 'assets/scripts'
       serve '/css', from: 'assets/stylesheets'
 
-      js :main, 'js/main.js', [
-        'js/jquery-2.1.1.js'
+      js :main, '/js/main.js', [
+        '/js/jquery-2.1.1.js'
       ]
-      css :main, 'css/main.css', [
-        'css/html5-doctor-reset-stylesheet.css'
+      css :main, '/css/main.css', [
+        '/css/html5-doctor-reset-stylesheet.css'
       ]
       js_compression :closure
       css_compression :sass
