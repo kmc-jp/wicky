@@ -34,7 +34,9 @@ module Wicky
       serve '/css', from: 'assets/stylesheets'
 
       js :main, '/js/main.js', [
-        '/js/jquery-2.1.1.js'
+        '/js/jquery-2.1.1.js',
+        '/js/wicky.js',
+        '/js/projects.js'
       ]
       css :main, '/css/main.css', [
         '/css/html5-doctor-reset-stylesheet.css'
@@ -55,7 +57,7 @@ module Wicky
 
     get '/projects/:id' do |id|
       halt 404 unless Project.exists?(id)
-      haml :project, locals: {
+      haml :projects, locals: {
         project: Project.find(id)
       }
     end
@@ -153,6 +155,11 @@ module Wicky
         project_id: project_id
       }
       json Schedule.update(id, schedule_data).to_json
+    end
+
+    get '/api/kramdown' do
+      text = params[:md]
+      Kramdown::Document.new(text, {}).to_html
     end
 
     run! if app_file == $0

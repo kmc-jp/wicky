@@ -1,0 +1,67 @@
+-# coding: utf-8
+%section.project
+  %h2 #{project.name}
+  %section.ui-editable{ 'data-save-api' => url("/api/projects/#{project.id}"), 'data-preview-api' => url('/api/kramdown') }
+    %div.ui-editable-view
+      :kramdown
+        #{project.summary}
+    %form.ui-editable-form{ action: url("/api/projects/#{project.id}"), method: :post, name: 'edit-summary' }
+      %p
+        %input{ type: :hidden, name: :_method, value: :put }
+        %input{ type: :hidden, name: :name, value: project.name }
+        %textarea.ui-editable-editor{ name: :summary }
+          :preserve
+            #{project.summary}
+      %button{ type: :submit } 編集する
+  %h3 参加者
+  %ul
+    != list_of project.users do |user|
+      = user.name
+      = surround '(', ')' do
+        = user.email
+  %form{ action: url('/api/participations'), method: :post, name: 'participate' }
+    %p
+      %input{ name: :name }
+      %input{ name: :email, type: :email }
+      %input{ name: :project_id, type: :hidden, value: project.id }
+      %input{ name: :is_leader, type: :hidden, value: false }
+      %button{ type: :submit } 参加登録する
+  %h3 予定
+  - project.schedules.each do |schedule|
+    %section.schedule
+      %h4 #{schedule.name}
+      %dl
+        %dt 場所
+        %dd #{schedule.place}
+        %dt 時間
+        %dd
+          = schedule.start
+          &dash;
+          = schedule.end
+      %div
+        :kramdown
+          #{schedule.description}
+      %form{ action: url("/api/schedules/#{schedule.id}"), method: :post, name: 'modify-schedule' }
+        %p
+          %input{ type: :hidden, name: :_method, value: :PUT }
+          %input{ type: :hidden, name: :project_id, value: project.id }
+          %input{ name: :name, value: schedule.name }
+          %input{ name: :start, type: :datetime, value: schedule.start }
+          %input{ name: :end, type: :datetime, value: schedule.end }
+          %input{ name: :place, value: schedule.place }
+          %button{ type: :submit } 予定を編集する
+  %hr
+  %form{ action: url('/api/schedules'), method: :post, name: 'add-schedule' }
+    %p
+      %input{ type: :hidden, name: :project_id, value: project.id }
+      %input{ name: :name }
+      %input{ name: :start, type: :datetime }
+      %input{ name: :end, type: :datetime }
+      %input{ name: :place }
+      %button{ type: :submit } 予定を作成する
+
+:javascript
+  jQuery(document).ready(function () {
+    wicky.projects.main();
+  });
+
