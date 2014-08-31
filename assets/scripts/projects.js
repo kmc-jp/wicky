@@ -9,7 +9,7 @@ wicky.projects = {};
 	function uiEditable() {
 		jQuery('section.ui-editable').each(function () {
 			var section = jQuery(this);
-			wicky.ui.editable({
+			ui.editable({
 				previewAPI: section.data('preview-api'),
 				saveAPI: section.data('save-api'),
 				view: section.find('.ui-editable-view'),

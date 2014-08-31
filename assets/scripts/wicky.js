@@ -8,18 +8,19 @@ var wicky = {
 		var blocking = false;
 
 		spec.form.on('submit', formOnSubmit);
-		['change', 'keypress', 'paste', 'click'].forEach(function (eventName) {
+		['change', 'keypress', 'paste', 'click', 'focus'].forEach(function (eventName) {
 			spec.editor.on(eventName, editorOnAction);
 		});
 
 		function editorOnAction (ev) {
-			if (blocking) {
+			var markdown_text = spec.editor.val();
+			if (blocking || !markdown_text) {
 				return;
 			}
 			blocking = true;
 			jQuery.ajax(spec.previewAPI, {
 				data: {
-					md: spec.editor.val()
+					md: markdown_text
 				}
 			}).done(function (html) {
 				spec.view.html(html);
