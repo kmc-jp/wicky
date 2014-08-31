@@ -6,7 +6,7 @@ Wiki-based schedule management tool
 ## Prerequisite
 
 * Ruby 1.9.3 / 2.0.0
-* Bundler 1.1.4
+* Bundler 1.1.4 / 1.7.2
 
 ~~~~
 cd path/to/repository
