@@ -2,6 +2,7 @@
 wicky.projects = {};
 
 (function (ui, projects, jQuery) {
+
 	projects.main = function () {
 		uiEditable();
 	};
@@ -12,11 +13,12 @@ wicky.projects = {};
 			ui.editable({
 				previewAPI: section.data('preview-api'),
 				saveAPI: section.data('save-api'),
+				editor: section.find('.ui-editable-editor'),
 				view: section.find('.ui-editable-view'),
-				form: section.find('.ui-editable-form'),
-				editor: section.find('.ui-editable-editor')
+				form: section.find('.ui-editable-form')
 			});
 		});
 	}
+
 }(wicky.ui, wicky.projects, jQuery));
 

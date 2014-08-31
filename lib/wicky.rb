@@ -34,9 +34,10 @@ module Wicky
       serve '/css', from: 'assets/stylesheets'
 
       js :main, '/js/main.js', [
-        '/js/jquery-2.1.1.js',
+        '/js/lib/jquery-2.1.1.js',
         '/js/wicky.js',
-        '/js/projects.js'
+        '/js/wicky/ui.js',
+        '/js/wicky/projects.js'
       ]
       css :main, '/css/main.css', [
         '/css/html5-doctor-reset-stylesheet.css'
@@ -46,13 +47,18 @@ module Wicky
     end
 
     get '/' do
-      redirect '/projects'
+      haml :index, locals: {
+        projects: Project.all,
+        schedules: Schedule.all
+      }
     end
 
-    get '/projects' do
-      haml :index, locals: {
-        projects: Project.all
+    post '/projects/!add' do
+      project_data = {
+        name: params[:name]
       }
+      project = Project.create(project_data)
+      redirect "/projects/#{project.id}"
     end
 
     get '/projects/:id' do |id|
@@ -67,12 +73,12 @@ module Wicky
       json Project.find(id).to_json
     end
 
-    post '/api/projects' do |id|
+    post '/api/projects' do
       project_data = {
         name: params[:name],
         summary: params[:summary]
       }
-      json Project.update(project_data).to_json
+      json Project.create(project_data).to_json
     end
 
     put '/api/projects/:id' do |id|
