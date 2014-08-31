@@ -61,7 +61,7 @@ module Wicky
       redirect "/projects/#{project.id}"
     end
 
-    get '/projects/:id' do |id|
+    get '/projects/:id/' do |id|
       halt 404 unless Project.exists?(id)
       haml :projects, locals: {
         project: Project.find(id)

@@ -3,6 +3,12 @@
   - projects.each do |proj|
     %h3.project
       %a{ href: url("/projects/#{proj.id}") } #{proj.name}
+%h2 予定一覧
+%section
+  - schedules.each do |schedule|
+    %h3.schedule
+      %a{ href: url("/projects/#{schedule.project.id}/\##{schedule.id}") }
+        #{schedule.project.name} / #{schedule.name}
 %h2 新規プロジェクトの作成
 %section
   %form{ action: url('/projects/!add'), method: :post, name: 'add-project' }

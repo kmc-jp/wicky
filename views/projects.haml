@@ -29,7 +29,7 @@
   %h3 予定
   - project.schedules.each do |schedule|
     %section.schedule
-      %h4 #{schedule.name}
+      %h4{ name: "schefule-#{schedule.id}" } #{schedule.name}
       %dl
         %dt 場所
         %dd #{schedule.place}
