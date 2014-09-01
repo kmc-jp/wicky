@@ -1,11 +1,11 @@
 -# coding: utf-8
 %section.project
   %h2 #{project.name}
-  %section.ui-editable{ 'data-save-api' => url("/api/projects/#{project.id}"), 'data-preview-api' => url('/api/kramdown') }
+  %section.ui-editable{ 'data-preview-api' => url('/api/kramdown') }
     %div.ui-editable-view
       :kramdown
         #{project.summary}
-    %form.ui-editable-form{ action: url("/api/projects/#{project.id}"), method: :post, name: 'edit-summary' }
+    %form{ action: url("/api/projects/#{project.id}"), method: :post, name: 'modify-summary' }
       %p
         %input{ type: :hidden, name: :_method, value: :put }
         %input{ type: :hidden, name: :name, value: project.name }

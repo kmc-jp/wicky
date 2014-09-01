@@ -4,18 +4,22 @@ wicky.projects = {};
 (function (ui, projects, jQuery) {
 
 	projects.main = function () {
+		silenceForm();
 		uiEditable();
+		uiBind();
 	};
+
+	function silenceForm() {
+		jQuery('form').silence();
+	}
 
 	function uiEditable() {
 		jQuery('section.ui-editable').each(function () {
 			var section = jQuery(this);
 			ui.editable({
 				previewAPI: section.data('preview-api'),
-				saveAPI: section.data('save-api'),
 				editor: section.find('.ui-editable-editor'),
-				view: section.find('.ui-editable-view'),
-				form: section.find('.ui-editable-form')
+				view: section.find('.ui-editable-view')
 			});
 		});
 	}
@@ -31,7 +35,7 @@ wicky.projects = {};
 			});
 			binders.push(binder);
 		});
-		jQuery('form[name="add-schedule"]').silence().on('submit', function (ev) {
+		jQuery('form[name="add-schedule"]').on('submit', function (ev) {
 			binders.forEach(function (binder) {
 				binder.update();
 			});

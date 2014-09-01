@@ -24,18 +24,6 @@ wicky.ui = {};
 			});
 		}
 
-		/* saveAPI が指定されている場合は form のデフォルト動作をキャンセルする */
-		if (spec.saveAPI) {
-			spec.form.on('submit', function (ev) {
-				ev.preventDefault();
-				jQuery.ajax(spec.saveAPI, {
-					type: 'POST',
-					data: spec.form.serialize()
-				});
-				return false;
-			});
-		}
-
 		['change', 'keypress', 'paste', 'click', 'focus'].forEach(function (eventName) {
 			spec.editor.on(eventName, editorOnAction);
 		});
