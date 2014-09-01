@@ -35,6 +35,7 @@ module Wicky
 
       js :main, '/js/main.js', [
         '/js/lib/jquery-2.1.1.js',
+        '/js/jquery-ext.js',
         '/js/wicky.js',
         '/js/wicky/ui.js',
         '/js/wicky/projects.js'
@@ -44,6 +45,12 @@ module Wicky
       ]
       js_compression :closure
       css_compression :sass
+    end
+
+    helpers do
+      def haml_bind(id, api, locals)
+        haml :bind, locals: { id: id, api: api, locals: locals }
+      end
     end
 
     get '/' do
@@ -66,6 +73,11 @@ module Wicky
       haml :projects, locals: {
         project: Project.find(id)
       }
+    end
+
+    get '/projects/:id/schedules/!list' do |id|
+      halt 404 unless Project.exists?(id)
+      haml :schedules, { layout: nil }, { schedules: Project.find(id).schedules }
     end
 
     get '/api/projects/:id.json' do |id|

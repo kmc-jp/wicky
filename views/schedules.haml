@@ -1,0 +1,26 @@
+-# coding: utf-8
+-# template for partial rendering in [GET] /projects/:id/
+- schedules.each do |schedule|
+  %section.schedule
+    %h4{ name: "schefule-#{schedule.id}" } #{schedule.name}
+    %dl
+      %dt 場所
+      %dd #{schedule.place}
+      %dt 時間
+      %dd
+        = schedule.start
+        &dash;
+        = schedule.end
+    %div
+      :kramdown
+        #{schedule.description}
+    %form{ action: url("/api/schedules/#{schedule.id}"), method: :post, name: 'modify-schedule' }
+      %p
+        %input{ type: :hidden, name: :_method, value: :PUT }
+        %input{ type: :hidden, name: :project_id, value: schedule.project.id }
+        %input{ name: :name, value: schedule.name }
+        %input{ name: :start, type: :datetime, value: schedule.start }
+        %input{ name: :end, type: :datetime, value: schedule.end }
+        %input{ name: :place, value: schedule.place }
+        %button{ type: :submit } 予定を編集する
+

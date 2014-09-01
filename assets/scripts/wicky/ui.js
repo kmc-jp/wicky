@@ -41,5 +41,13 @@ wicky.ui = {};
 		});
 	};
 
+	ui.bind = function (spec) {
+		var binder = {}, bindingSection = spec.bindingSection, bindUpdateAPI = spec.bindUpdateAPI;
+		binder.update = function () {
+			bindingSection.load(bindUpdateAPI);
+		};
+		return binder;
+	};
+
 }(wicky.ui, jQuery));
 
