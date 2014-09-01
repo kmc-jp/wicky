@@ -1,15 +1,15 @@
 -# coding: utf-8
 %section.project
   %h2 #{project.name}
-  %section.ui-editable{ 'data-preview-api' => url('/api/kramdown') }
-    %div.ui-editable-view
+  %section
+    != bind 'project-summary', url('/api/kramdown') do
       :kramdown
         #{project.summary}
-    %form{ action: url("/api/projects/#{project.id}"), method: :post, name: 'modify-summary' }
+    %form{ action: url("/api/projects/#{project.id}"), method: :post, name: 'modify-summary', 'data-binder' => 'project-summary' }
       %p
         %input{ type: :hidden, name: :_method, value: :put }
         %input{ type: :hidden, name: :name, value: project.name }
-        %textarea.ui-editable-editor{ name: :summary }
+        %textarea{ name: :summary, 'data-binder' => 'project-summary' }
           :preserve
             #{project.summary}
       %button{ type: :submit } 編集する
@@ -28,9 +28,10 @@
       %button{ type: :submit } 参加登録する
   %h3 予定
   %section
-    != haml_bind :schedules, url("/projects/#{project.id}/schedules/!list"), { schedules: project.schedules }
+    != bind :schedules, url("/projects/#{project.id}/schedules/!list") do
+      != haml :schedules, locals: { schedules: project.schedules }
   %hr
-  %form{ action: url('/api/schedules'), method: :post, name: 'add-schedule' }
+  %form{ action: url('/api/schedules'), method: :post, name: 'add-schedule', 'data-binder' => 'schedules' }
     %p
       %input{ type: :hidden, name: :project_id, value: project.id }
       %input{ name: :name }

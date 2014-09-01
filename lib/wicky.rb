@@ -48,8 +48,10 @@ module Wicky
     end
 
     helpers do
-      def haml_bind(id, api, locals)
-        haml :bind, locals: { id: id, api: api, locals: locals }
+      def bind(id, api, &block)
+        capture_haml do
+          haml_tag 'div.ui-bind', { 'data-bind-id' => id, 'data-bind-update-api' => api }, &block
+        end
       end
     end
 
@@ -77,7 +79,7 @@ module Wicky
 
     get '/projects/:id/schedules/!list' do |id|
       halt 404 unless Project.exists?(id)
-      haml :schedules, { layout: nil }, { schedules: Project.find(id).schedules }
+      haml :schedules, { layout: false }, { schedules: Project.find(id).schedules }
     end
 
     get '/api/projects/:id.json' do |id|

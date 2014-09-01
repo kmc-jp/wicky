@@ -3,42 +3,40 @@ wicky.projects = {};
 
 (function (ui, projects, jQuery) {
 
+	var views = {};
+
 	projects.main = function () {
 		silenceForm();
-		uiEditable();
-		uiBind();
+		views.modifySummaryForm = jQuery('form[name="modify-summary"]');
+		views.summaryEditor = views.modifySummaryForm.find('textarea[name="summary"]');
+		views.addScheduleForm = jQuery('form[name="add-schedule"]');
+		uiProjectSummaryEditor();
+		uiModifySummaryForm();
+		uiAddScheduleForm();
 	};
 
 	function silenceForm() {
 		jQuery('form').silence();
 	}
 
-	function uiEditable() {
-		jQuery('section.ui-editable').each(function () {
-			var section = jQuery(this);
-			ui.editable({
-				previewAPI: section.data('preview-api'),
-				editor: section.find('.ui-editable-editor'),
-				view: section.find('.ui-editable-view')
+	function uiProjectSummaryEditor() {
+		ui.editable(views.summaryEditor);
+	}
+
+	function uiModifySummaryForm () {
+		views.modifySummaryForm.on('submit', function (ev) {
+			ui.binder(views.modifySummaryForm.data('binder')).update({
+				method: 'get',
+				data: {
+					md: views.summaryEditor.val()
+				}
 			});
 		});
 	}
 
-	function uiBind() {
-		var binders = [];
-		jQuery('section.ui-bind').each(function () {
-			var section = jQuery(this);
-			var binder = ui.bind({
-				id: section.data('bind-id'),
-				bindUpdateAPI: section.data('bind-update-api'),
-				bindingSection: section
-			});
-			binders.push(binder);
-		});
-		jQuery('form[name="add-schedule"]').on('submit', function (ev) {
-			binders.forEach(function (binder) {
-				binder.update();
-			});
+	function uiAddScheduleForm () {
+		views.addScheduleForm.on('submit', function (ev) {
+			ui.binder(views.addScheduleForm.data('binder')).update();
 		});
 	}
 
