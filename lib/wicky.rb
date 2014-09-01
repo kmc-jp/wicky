@@ -82,6 +82,11 @@ module Wicky
       haml :schedules, { layout: false }, { schedules: Project.find(id).schedules }
     end
 
+    get '/projects/:id/users/!list' do |id|
+      halt 404 unless Project.exists?(id)
+      haml :users, { layout: false }, { users: Project.find(id).users }
+    end
+
     get '/api/projects/:id.json' do |id|
       halt 404 unless Project.exists?(id)
       json Project.find(id).to_json

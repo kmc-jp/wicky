@@ -15,11 +15,9 @@
       %button{ type: :submit } 編集する
   %h3 参加者
   %ul
-    != list_of project.users do |user|
-      = user.name
-      = surround '(', ')' do
-        = user.email
-  %form{ action: url('/api/participations'), method: :post, name: 'participate' }
+    != bind 'users', url("/projects/#{project.id}/users/!list") do
+      != haml :users, locals: { users: project.users }
+  %form{ action: url('/api/participations'), method: :post, name: 'add-participation', 'data-binder' => 'users' }
     %p
       %input{ name: :name }
       %input{ name: :email, type: :email }

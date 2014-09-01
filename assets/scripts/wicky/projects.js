@@ -9,17 +9,19 @@ wicky.projects = {};
 		silenceForm();
 		views.modifySummaryForm = jQuery('form[name="modify-summary"]');
 		views.summaryEditor = views.modifySummaryForm.find('textarea[name="summary"]');
+		views.addParticipationForm = jQuery('form[name="add-participation"]');
 		views.addScheduleForm = jQuery('form[name="add-schedule"]');
 		uiProjectSummaryEditor();
 		uiModifySummaryForm();
+		uiAddParticipationForm();
 		uiAddScheduleForm();
 	};
 
-	function silenceForm() {
+	function silenceForm () {
 		jQuery('form').silence();
 	}
 
-	function uiProjectSummaryEditor() {
+	function uiProjectSummaryEditor () {
 		ui.editable(views.summaryEditor);
 	}
 
@@ -31,6 +33,12 @@ wicky.projects = {};
 					md: views.summaryEditor.val()
 				}
 			});
+		});
+	}
+
+	function uiAddParticipationForm () {
+		views.addParticipationForm.on('submit', function (ev) {
+			ui.binder(views.addParticipationForm.data('binder')).update();
 		});
 	}
 
