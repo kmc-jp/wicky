@@ -3,6 +3,8 @@ wicky.ui = {};
 
 (function (ui, jQuery) {
 
+	ui.editorUpdateInterval = 2000;
+
 	ui.editable = function(editor) {
 		var binder = ui.binder(editor.data('binder'));
 		var blocking = false;
@@ -24,14 +26,14 @@ wicky.ui = {};
 			}).done(function () {
 				setTimeout(function () {
 					blocking = false;
-				}, 4000);
+				}, ui.editorUpdateInterval);
 			});
 		}
 
 		['change', 'keypress', 'paste', 'click', 'focus'].forEach(function (eventName) {
 			editor.on(eventName, editorOnAction);
 		});
-	}
+	};
 
 	ui.binder = (function (binders) {
 		return function (id) {
