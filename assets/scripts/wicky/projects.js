@@ -6,45 +6,55 @@ wicky.projects = {};
 	var views = {};
 
 	projects.main = function () {
-		silenceForm();
-		views.modifySummaryForm = jQuery('form[name="modify-summary"]');
-		views.summaryEditor = views.modifySummaryForm.find('textarea[name="summary"]');
-		views.addParticipationForm = jQuery('form[name="add-participation"]');
-		views.addScheduleForm = jQuery('form[name="add-schedule"]');
-		uiProjectSummaryEditor();
-		uiModifySummaryForm();
-		uiAddParticipationForm();
-		uiAddScheduleForm();
+		uiEditorPreview();
+		uiFormBind();
 	};
 
-	function silenceForm () {
-		jQuery('form').silence();
+	/**
+	 * focus した textarea でプレビューを有効にする．
+	 * 動的に追加された textarea 要素も対象．
+	 */
+	function uiEditorPreview () {
+		var editables = new WeakMap();
+		jQuery(document).on('focus', 'textarea', function (ev) {
+			var target = jQuery(ev.target);
+			if (editables.has(ev.target)) {
+				return;
+			}
+			if (target.is('form.modify-summary textarea[name="summary"]')
+			 || target.is('form.modify-schedule textarea[name="description"]')) {
+				ui.editable(target);
+				editables.set(ev.target, true);
+			}
+		});
 	}
 
-	function uiProjectSummaryEditor () {
-		ui.editable(views.summaryEditor);
-	}
-
-	function uiModifySummaryForm () {
-		views.modifySummaryForm.on('submit', function (ev) {
-			ui.binder(views.modifySummaryForm.data('binder')).update({
-				method: 'get',
-				data: {
-					md: views.summaryEditor.val()
-				}
+	/**
+	 * data-binder を設定してある form から submit したときに，
+	 * 紐づけてあるビューを更新する．
+	 */
+	function uiFormBind () {
+		jQuery(document).on('submit', 'form', function (ev) {
+			var form = jQuery(ev.target), config = {}, binder;
+			if (!form.is('form[data-binder]')) {
+				return;
+			}
+			ev.preventDefault();
+			binder = ui.binder(form.data('binder'));
+			if (form.is('form.modify-summary')) {
+				/**
+				 * TODO: '/projects/:id/!show' を実装して summary だけでなく name も置き換えるように
+				 */
+				jQuery.extend(config, {
+					data: {
+						md: form.find('textarea[name="summary"]').val()
+					}
+				});
+			}
+			jQuery.post(form.attr('action'), form.serialize()).done(function () {
+				binder.update(config);
 			});
-		});
-	}
-
-	function uiAddParticipationForm () {
-		views.addParticipationForm.on('submit', function (ev) {
-			ui.binder(views.addParticipationForm.data('binder')).update();
-		});
-	}
-
-	function uiAddScheduleForm () {
-		views.addScheduleForm.on('submit', function (ev) {
-			ui.binder(views.addScheduleForm.data('binder')).update();
+			return false;
 		});
 	}
 

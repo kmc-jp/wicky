@@ -2,19 +2,10 @@
 -# template for partial rendering in [GET] /projects/:id/
 - schedules.each do |schedule|
   %section.schedule
-    %h4{ name: "schefule-#{schedule.id}" } #{schedule.name}
-    %dl
-      %dt 場所
-      %dd #{schedule.place}
-      %dt 時間
-      %dd
-        = schedule.start
-        &dash;
-        = schedule.end
-    %div
-      :kramdown
-        #{schedule.description}
-    %form{ action: url("/api/schedules/#{schedule.id}"), method: :post, name: 'modify-schedule' }
+    - binder_id = "schedule-#{schedule.id}"
+    != bind binder_id, url("/schedules/#{schedule.id}/!show") do
+      != haml :a_schedule, locals: { schedule: schedule }
+    %form.modify-schedule{ action: url("/api/schedules/#{schedule.id}"), method: :post, 'data-binder' => binder_id }
       %p
         %input{ type: :hidden, name: :_method, value: :PUT }
         %input{ type: :hidden, name: :project_id, value: schedule.project.id }
@@ -22,5 +13,8 @@
         %input{ name: :start, type: :datetime, value: schedule.start }
         %input{ name: :end, type: :datetime, value: schedule.end }
         %input{ name: :place, value: schedule.place }
+        %textarea{ name: :description, 'data-binder' => "schedule-#{schedule.id}-description" }
+          :preserve
+            #{schedule.description}
         %button{ type: :submit } 予定を編集する
 

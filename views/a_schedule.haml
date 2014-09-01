@@ -1,0 +1,14 @@
+-# coding: utf-8
+%h4{ name: "schedule-#{schedule.id}" } #{schedule.name}
+%dl
+  %dt 場所
+  %dd #{schedule.place}
+  %dt 時間
+  %dd
+    = schedule.start
+    &dash;
+    = schedule.end
+!= bind "schedule-#{schedule.id}-description", url('/api/kramdown') do
+  :kramdown
+    #{schedule.description}
+

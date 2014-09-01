@@ -1,42 +1,43 @@
 -# coding: utf-8
-%section.project
-  %h2 #{project.name}
-  %section
-    != bind 'project-summary', url('/api/kramdown') do
-      :kramdown
-        #{project.summary}
-    %form{ action: url("/api/projects/#{project.id}"), method: :post, name: 'modify-summary', 'data-binder' => 'project-summary' }
+!= bind 'project', url("/projects/#{project.id}/!show") do
+  %section.project
+    %h2 #{project.name}
+    %section
+      != bind 'project-summary', url('/api/kramdown') do
+        :kramdown
+          #{project.summary}
+      %form.modify-summary{ action: url("/api/projects/#{project.id}"), method: :post, 'data-binder' => 'project' }
+        %p
+          %input{ type: :hidden, name: :_method, value: :put }
+          %input{ type: :hidden, name: :name, value: project.name }
+          %textarea{ name: :summary, 'data-binder' => 'project-summary' }
+            :preserve
+              #{project.summary}
+        %button{ type: :submit } 編集する
+    %h3 参加者
+    %ul
+      != bind 'users', url("/projects/#{project.id}/users/!list") do
+        != haml :users, locals: { users: project.users }
+    %form.add-participation{ action: url('/api/participations'), method: :post, 'data-binder' => 'users' }
       %p
-        %input{ type: :hidden, name: :_method, value: :put }
-        %input{ type: :hidden, name: :name, value: project.name }
-        %textarea{ name: :summary, 'data-binder' => 'project-summary' }
-          :preserve
-            #{project.summary}
-      %button{ type: :submit } 編集する
-  %h3 参加者
-  %ul
-    != bind 'users', url("/projects/#{project.id}/users/!list") do
-      != haml :users, locals: { users: project.users }
-  %form{ action: url('/api/participations'), method: :post, name: 'add-participation', 'data-binder' => 'users' }
-    %p
-      %input{ name: :name }
-      %input{ name: :email, type: :email }
-      %input{ name: :project_id, type: :hidden, value: project.id }
-      %input{ name: :is_leader, type: :hidden, value: false }
-      %button{ type: :submit } 参加登録する
-  %h3 予定
-  %section
-    != bind :schedules, url("/projects/#{project.id}/schedules/!list") do
-      != haml :schedules, locals: { schedules: project.schedules }
-  %hr
-  %form{ action: url('/api/schedules'), method: :post, name: 'add-schedule', 'data-binder' => 'schedules' }
-    %p
-      %input{ type: :hidden, name: :project_id, value: project.id }
-      %input{ name: :name }
-      %input{ name: :start, type: :datetime }
-      %input{ name: :end, type: :datetime }
-      %input{ name: :place }
-      %button{ type: :submit } 予定を作成する
+        %input{ name: :name }
+        %input{ name: :email, type: :email }
+        %input{ name: :project_id, type: :hidden, value: project.id }
+        %input{ name: :is_leader, type: :hidden, value: false }
+        %button{ type: :submit } 参加登録する
+    %h3 予定
+    %section.schedules
+      != bind :schedules, url("/projects/#{project.id}/schedules/!list") do
+        != haml :schedules, locals: { schedules: project.schedules }
+    %hr
+    %form.add-schedule{ action: url('/api/schedules'), method: :post, 'data-binder' => 'schedules' }
+      %p
+        %input{ type: :hidden, name: :project_id, value: project.id }
+        %input{ name: :name }
+        %input{ name: :start, type: :datetime }
+        %input{ name: :end, type: :datetime }
+        %input{ name: :place }
+        %button{ type: :submit } 予定を作成する
 
 :javascript
   jQuery(document).ready(function () {
