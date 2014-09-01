@@ -35,7 +35,6 @@ module Wicky
 
       js :main, '/js/main.js', [
         '/js/lib/jquery-2.1.1.js',
-        '/js/jquery-ext.js',
         '/js/wicky.js',
         '/js/wicky/ui.js',
         '/js/wicky/projects.js'
