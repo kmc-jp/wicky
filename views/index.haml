@@ -2,7 +2,7 @@
 %section
   - projects.each do |proj|
     %h3.project
-      %a{ href: url("/projects/#{proj.id}") } #{proj.name}
+      %a{ href: url("/projects/#{proj.id}/") } #{proj.name}
 %h2 予定一覧
 %section
   - schedules.each do |schedule|
