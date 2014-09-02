@@ -40,7 +40,9 @@ module Wicky
         '/js/wicky/projects.js'
       ]
       css :main, '/css/main.css', [
-        '/css/html5-doctor-reset-stylesheet.css'
+        '/css/html5-doctor-reset-stylesheet.css',
+        '/css/bootstrap.css',
+        '/css/bootstrap-theme.css'
       ]
       js_compression :closure
       css_compression :sass
