@@ -2,24 +2,17 @@
 !!! 5
 %html
   %head
-    %meta{ :charset => 'UTF-8' }
-    %meta{ :content => "Wiki-based schedule management tool", :name => 'description' }
+    %meta{ charset: 'UTF-8' }
+    %meta{ name: :description, content: "Wiki-based schedule management tool" }
+    %meta{ name: :viewport, content: "width=device-width, initial-scale=1" }
     != css :main
     != js :main
     %title= "Wicky"
   %body
-    -#%header
-    -#  %nav
-    -#    %ul
-    -#      %li= "Item"
- 
-    %article
-      !=yield
-
-    -#%aside
-    -#  %h2= "The Sidebar"
-
-    %footer
-      %p
-        Copyright 2014 Kyoto univ. Microcomputer Club
+    %div.container-fluid
+      %article
+        !=yield
+      %footer
+        %p
+          Copyright 2014 Kyoto univ. Microcomputer Club
 
