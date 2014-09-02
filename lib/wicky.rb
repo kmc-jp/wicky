@@ -68,7 +68,7 @@ module Wicky
         name: params[:name]
       }
       project = Project.create(project_data)
-      redirect "/projects/#{project.id}"
+      redirect "/projects/#{project.id}/"
     end
 
     get '/projects/:id/' do |id|
