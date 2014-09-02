@@ -13,8 +13,8 @@
         %input{ name: :start, type: :datetime, value: schedule.start }
         %input{ name: :end, type: :datetime, value: schedule.end }
         %input{ name: :place, value: schedule.place }
-        %textarea{ name: :description, 'data-binder' => "schedule-#{schedule.id}-description" }
+        %textarea.form-control{ name: :description, 'data-binder' => "schedule-#{schedule.id}-description" }
           :preserve
             #{schedule.description}
-        %button{ type: :submit } 予定を編集する
+        %button.btn.btn-default{ type: :submit } 予定を編集する
 

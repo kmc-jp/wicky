@@ -10,21 +10,25 @@
         %p
           %input{ type: :hidden, name: :_method, value: :put }
           %input{ type: :hidden, name: :name, value: project.name }
-          %textarea{ name: :summary, 'data-binder' => 'project-summary' }
+          %textarea.form-control{ name: :summary, 'data-binder' => 'project-summary' }
             :preserve
               #{project.summary}
-        %button{ type: :submit } 編集する
+        %button.btn.btn-default{ type: :submit } 編集する
     %h3 参加者
     %ul
       != bind 'users', url("/projects/#{project.id}/users/!list") do
         != haml :users, locals: { users: project.users }
-    %form.add-participation{ action: url('/api/participations'), method: :post, 'data-binder' => 'users' }
+    %form.form-inline.add-participation{ action: url('/api/participations'), method: :post, 'data-binder' => 'users' }
       %p
-        %input{ name: :name }
-        %input{ name: :email, type: :email }
-        %input{ name: :project_id, type: :hidden, value: project.id }
-        %input{ name: :is_leader, type: :hidden, value: false }
-        %button{ type: :submit } 参加登録する
+        %div.form-group
+          %input{ name: :project_id, type: :hidden, value: project.id }
+          %input{ name: :is_leader, type: :hidden, value: false }
+          %input.form-control{ name: :name }
+          %div.input-group
+            %span.input-group-addon @
+            %input.form-control{ name: :email, type: :email }
+        %div.form-group
+          %button.btn.btn-default{ type: :submit } 参加登録する
     %h3 予定
     %section.schedules
       != bind :schedules, url("/projects/#{project.id}/schedules/!list") do
@@ -37,7 +41,7 @@
         %input{ name: :start, type: :datetime }
         %input{ name: :end, type: :datetime }
         %input{ name: :place }
-        %button{ type: :submit } 予定を作成する
+        %button.btn.btn-default{ type: :submit } 予定を作成する
 
 :javascript
   jQuery(document).ready(function () {
