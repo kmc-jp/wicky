@@ -71,7 +71,7 @@ module Wicky
 
     get '/projects/:id/' do |id|
       halt 404 unless Project.exists?(id)
-      haml :projects, locals: {
+      haml :a_project, locals: {
         project: Project.find(id)
       }
     end
