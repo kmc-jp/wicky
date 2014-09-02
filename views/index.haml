@@ -7,7 +7,7 @@
 %section
   - schedules.each do |schedule|
     %h3.schedule
-      %a{ href: url("/projects/#{schedule.project.id}/\##{schedule.id}") }
+      %a{ href: url("/projects/#{schedule.project.id}/\#schedule-#{schedule.id}") }
         #{schedule.project.name} / #{schedule.name}
 %h2 新規プロジェクトの作成
 %section
