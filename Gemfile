@@ -10,6 +10,5 @@ gem 'activerecord'
 gem 'sqlite3'
 gem 'rake'
 gem 'kramdown'
-
-# gem 'thin'
+gem 'thin'
 
