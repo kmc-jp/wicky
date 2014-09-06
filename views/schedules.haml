@@ -1,0 +1,20 @@
+-# coding: utf-8
+-# template for partial rendering in [GET] /projects/:id/
+- schedules.each do |schedule|
+  %section.schedule
+    - binder_id = "schedule-#{schedule.id}"
+    != bind binder_id, url("/schedules/#{schedule.id}/!show") do
+      != haml :a_schedule, locals: { schedule: schedule }
+    %form.modify-schedule{ action: url("/api/schedules/#{schedule.id}"), method: :post, 'data-binder' => binder_id }
+      %p
+        %input{ type: :hidden, name: :_method, value: :PUT }
+        %input{ type: :hidden, name: :project_id, value: schedule.project.id }
+        %input{ name: :name, value: schedule.name }
+        %input{ name: :start, type: :datetime, value: schedule.start }
+        %input{ name: :end, type: :datetime, value: schedule.end }
+        %input{ name: :place, value: schedule.place }
+        %textarea.form-control{ name: :description, 'data-binder' => "schedule-#{schedule.id}-description" }
+          :preserve
+            #{schedule.description}
+        %button.btn.btn-default{ type: :submit } 予定を編集する
+

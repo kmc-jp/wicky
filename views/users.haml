@@ -1,0 +1,5 @@
+!= list_of users do |user|
+  = user.name
+  = surround '(', ')' do
+    = user.email
+
