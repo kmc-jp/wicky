@@ -27,7 +27,7 @@ vi database.yml
 Then, create and migrate the DB:
 
 ~~~~
-bundle exec exec db:migrate
+bundle exec rake db:migrate
 ~~~~
 
 ## Run server
